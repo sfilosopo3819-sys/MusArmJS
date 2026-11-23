@@ -238,6 +238,10 @@ nav {
   text-transform: uppercase;
 }
 
+.mobile-menu-toggle {
+  display: none;
+}
+
 nav a:not(.btn) {
   padding: 4px 0;
   border-bottom: 1px solid transparent;
@@ -666,6 +670,19 @@ nav a.on {
   line-height: 1.3;
 }
 
+.sound-section {
+  text-align: center;
+  background: #fff;
+}
+
+.sound-section .chips {
+  margin-block-start: 50px;
+  justify-content: center;
+}
+
+
+
+
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -1032,6 +1049,14 @@ nav a.on {
   border-bottom: 1px solid var(--dk);
 }
 
+.wrap.branches .bcard .branch-logo{
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .bcard.dk .bcard-head {
   border-color: rgba(255,255,255,.5);
 }
@@ -1062,6 +1087,24 @@ nav a.on {
   width: 52px;
   height: 52px;
   border-radius: 6px;
+}
+
+.bcard .branch-logo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.bcard .branch-army {
+  background-image: url("branch-army.png");
+}
+
+.bcard .branch-fort {
+  background-image: url("branch-fort.png");
+}
+
+.bcard .branch-barracks {
+  background-image: url("branch-barracks.png");
 }
 
 .bcard dl {
@@ -1305,6 +1348,24 @@ td.closed {
   width: 40px;
   height: 40px;
   border-radius: 6px;
+}
+
+.contact-head .branch-logo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.contact-head .branch-army {
+  background-image: url("branch-army.png");
+}
+
+.contact-head .branch-fort {
+  background-image: url("branch-fort.png");
+}
+
+.contact-head .branch-barracks {
+  background-image: url("branch-barracks.png");
 }
 
 .contact-head .tag {
@@ -2252,20 +2313,114 @@ body.modal-open {
 @media(max-width:800px) {
 
   header .wrap {
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    min-height: 64px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 
   nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+    margin-left: auto;
+    flex-wrap: nowrap;
+    gap: 8px;
   }
 
   .menu-icon,
   .nav-divider {
+    display: none;
+  }
+
+  header {
+    transition: transform .28s cubic-bezier(.22,.8,.24,1);
+  }
+
+  header.mobile-hidden {
+    transform: translateY(-110%);
+  }
+
+  header .brand img {
+    height: 36px;
+  }
+
+  .mobile-menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    border: 1px solid #9db4a6;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle span,
+  .mobile-menu-toggle::before,
+  .mobile-menu-toggle::after {
+    content: "";
+    width: 16px;
+    height: 1px;
+    background: #fff;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+
+  .mobile-menu-toggle {
+    grid-template-rows: 1px 1px 1px;
+    align-content: center;
+    gap: 4px;
+  }
+
+  header.menu-open .mobile-menu-toggle::before {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  header.menu-open .mobile-menu-toggle span {
+    opacity: 0;
+  }
+
+  header.menu-open .mobile-menu-toggle::after {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  header nav {
+    margin-left: 0;
+  }
+
+  header nav a:not(.btn),
+  header nav .menu-icon,
+  header nav .nav-divider {
+    display: none;
+  }
+
+  header nav .btn {
+    display: inline-block;
+    padding: 10px 14px;
+    white-space: nowrap;
+  }
+
+  header.menu-open nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    padding: 10px 32px 18px;
+    background: var(--dk);
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+
+  header.menu-open nav a:not(.btn) {
+    display: block;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    color: #fff;
+  }
+
+  header.menu-open nav .btn {
     display: none;
   }
 

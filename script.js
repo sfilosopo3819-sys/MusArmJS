@@ -160,17 +160,55 @@
   /* ---------- 3. Header shadow on scroll ---------- */
 
   const header = $("header");
-  const onScroll = () => header && header.classList.toggle("scrolled", window.scrollY > 8);
+  if (header) {
+    const mobileToggle = document.createElement("button");
+    mobileToggle.type = "button";
+    mobileToggle.className = "mobile-menu-toggle";
+    mobileToggle.setAttribute("aria-label", "Open navigation");
+    mobileToggle.setAttribute("aria-expanded", "false");
+    mobileToggle.innerHTML = "<span></span>";
+    header.querySelector(".wrap")?.append(mobileToggle);
+
+    mobileToggle.addEventListener("click", () => {
+      const open = header.classList.toggle("menu-open");
+      mobileToggle.setAttribute("aria-expanded", String(open));
+      mobileToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    });
+  }
+
+  let lastScrollY = window.scrollY;
+  const onScroll = () => {
+    if (!header) return;
+    const currentScrollY = window.scrollY;
+    header.classList.toggle("scrolled", currentScrollY > 8);
+
+    if (window.matchMedia("(max-width: 800px)").matches) {
+      if (currentScrollY < 80) {
+        header.classList.remove("mobile-hidden");
+      } else if (currentScrollY > lastScrollY) {
+        header.classList.remove("mobile-hidden");
+      } else if (currentScrollY < lastScrollY) {
+        header.classList.add("mobile-hidden");
+        header.classList.remove("menu-open");
+      }
+    } else {
+      header.classList.remove("mobile-hidden");
+    }
+
+    lastScrollY = Math.max(currentScrollY, 0);
+  };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
   /* ---------- 4. Scroll reveal ---------- */
 
   const REVEAL = [
-    ".hero .wrap > *", ".row-r > *", ".band .wrap > .eyebrow", ".band .wrap > h1", ".band .wrap > h2",
+    ".hero .wrap > *", ".home-hero .wrap > *", ".row-r > *", ".band .wrap > .eyebrow", ".band .wrap > h1", ".band .wrap > h2",
     "section > .wrap > .eyebrow", "section > .wrap > h2", ".toolbar", ".plan", ".coach", ".perk", ".chip",
     ".tcard", ".profile", ".admin", ".masonry .ph", ".video > *", ".bcard", ".map", ".hours", ".contact",
     ".faq details", ".detail > *", ".cmp", ".cta", ".book-grid > *", ".faq-grid > *",
+    ".who-card", ".build-copy > *", ".collage .ph", ".community-grid > *", ".teacher-row .ph",
+    ".review-card", ".location-card",
   ].join(",");
 
   if ("IntersectionObserver" in window && !reduceMotion) {
