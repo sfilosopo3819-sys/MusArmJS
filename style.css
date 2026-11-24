@@ -183,6 +183,13 @@ h2.up {
   background: linear-gradient(45deg,#2d6048 0%,#6fae88 55%,#93c9a6 100%);
 }
 
+.about-row .ph.g1.tall {
+  
+  min-height: 380px;
+  background: url("Assets/Student Pictures/Copy of DSCF6755.jpg") center 42% / cover no-repeat;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0);
+}
+
 .ph.g1 {
   background: linear-gradient(45deg,#3d6650 0%,#8d9560 50%,#cdb66b 100%);
 }
@@ -190,9 +197,20 @@ h2.up {
 .ph.g2 {
   background: linear-gradient(45deg,#14291f 0%,#2d5a45 55%,#4a7c63 100%);
 }
+.row-r .ph.g2 {
+  min-height: 380px;
+  background: url("Assets/Student Pictures/Piano-philosophy.jpg") center 42% / cover no-repeat;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0);
+}
 
 .ph.g3 {
   background: linear-gradient(45deg,#6aa682 0%,#9fd0b0 55%,#b4dcc1 100%);
+}
+
+.row-r .ph.g3 {
+  min-height: 380px;
+  background: url("Assets/Student Pictures/Group PIC.jpg") center 42% / cover no-repeat;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0);
 }
 
 .ph.g4 {
@@ -331,6 +349,19 @@ nav a.on {
 .hero-img {
   aspect-ratio: 7/6;
   box-shadow: 0 14px 34px rgba(16,36,28,.18);
+}
+
+.wrap .hero-img{
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0);
+
+}
+
+
+
+.hero.about .hero-img{
+  min-height: 380px;
+  background: url("Assets/Student Pictures/Copy of DSCF6824.jpg") center 42% / cover no-repeat;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0);
 }
 
 .hero.dark {
@@ -758,6 +789,64 @@ nav a.on {
 .tcard .ph {
   aspect-ratio: 1/1;
   border-radius: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover, cover;
+  transition: background-size .55s var(--ease), transform .55s var(--ease), filter .35s ease;
+  overflow: hidden;
+}
+
+.teacher-card-link {
+  display: block;
+  color: inherit;
+}
+
+.tcard .teacher-dianne {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-dianne.png");
+}
+
+.tcard .teacher-jamaica {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-jamaica.png");
+}
+
+.tcard .teacher-ferdinand {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-ferdinand.png");
+}
+
+.tcard .teacher-jerico {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-jerico.png");
+}
+
+.tcard .teacher-michael {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-michael.png");
+}
+
+.tcard .teacher-juan {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-juan.png");
+}
+
+.tcard .teacher-extra {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.03) 42%, rgba(15,31,23,.72) 100%),
+    url("Assets/Images/Teachers/teacher-extra.png");
+}
+
+.tcard:hover .ph,
+.tcard:focus-within .ph {
+  background-size: cover, 108%;
+  filter: brightness(.92);
 }
 
 .tcard .body {
@@ -803,6 +892,15 @@ nav a.on {
 .profile .ph {
   aspect-ratio: 1/1;
   border-radius: 4px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.profile .teacher-dianne {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.68) 100%),
+    url("Assets/Images/Teachers/teacher-dianne.png");
 }
 
 .profile h2 {
@@ -918,6 +1016,48 @@ nav a.on {
   font-size: 11px;
 }
 
+.masonry .event-photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.masonry .event-1 {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.72) 100%),
+    url("Assets/Student Pictures/Events/Random.jpg");
+}
+
+.masonry .event-2 {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.72) 100%),
+    url("Assets/Student Pictures/Events/Copy of DSCF6676.jpg");
+}
+
+.masonry .event-3 {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.72) 100%),
+    url("Assets/Student Pictures/Events/Copy of DSCF6543.jpg");
+}
+
+.masonry .event-4 {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.72) 100%),
+    url("Assets/Student Pictures/Events/Copy of DSCF6539.jpg");
+}
+
+.masonry .event-5 {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.72) 100%),
+    url("Assets/Student Pictures/Events/Copy of DSCF6525.jpg");
+}
+
+.masonry .event-6 {
+  background-image:
+    linear-gradient(180deg, rgba(15,31,23,.02) 45%, rgba(15,31,23,.72) 100%),
+    url("Assets/Student Pictures/Events/Copy of DSCF6476.jpg");
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -938,7 +1078,16 @@ nav a.on {
   justify-content: center;
   aspect-ratio: 16/9;
   border-radius: 4px;
-  background: linear-gradient(45deg,#14291f 0%,#2d5a45 55%,#4a7c63 100%);
+  overflow: hidden;
+  background: #14291f;
+}
+
+.performance-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #14291f;
 }
 
 .play {
@@ -985,19 +1134,31 @@ nav a.on {
   align-items: center;
   gap: 14px;
   padding: 10px;
+  border: 0;
   border-radius: 4px;
   background: #fff;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
   font-size: 12px;
 }
 
-.vitem .ph {
-  position: relative;
+.vitem-video {
   flex: none;
   width: 96px;
   height: 60px;
   border-radius: 2px;
+  object-fit: cover;
+  background: #14291f;
 }
 
+.book-grid .ph.tall{
+  min-height: 380px;
+  background: url("Assets/Student Pictures/Copy of DSCF6755.jpg") center 42% / cover no-repeat;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0);
+
+
+}
 .vitem .play {
   position: absolute;
   top: 50%;
@@ -1015,10 +1176,19 @@ nav a.on {
 
 /* ===== Branches ===== */
 .branches {
+  display: block;
+}
+
+.branch-card-row {
   display: grid;
-  grid-template-columns: 1fr 1.32fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   align-items: stretch;
+}
+
+.branch-card-row .bcard {
+  height: 100%;
+  margin-bottom: 0;
 }
 
 .bcard {
@@ -1096,15 +1266,15 @@ nav a.on {
 }
 
 .bcard .branch-army {
-  background-image: url("branch-army.png");
+  background-image: url("Assets/Images/Branches/branch-army.png");
 }
 
 .bcard .branch-fort {
-  background-image: url("branch-fort.png");
+  background-image: url("Assets/Images/Branches/branch-fort.png");
 }
 
 .bcard .branch-barracks {
-  background-image: url("branch-barracks.png");
+  background-image: url("Assets/Images/Branches/branch-barracks.png");
 }
 
 .bcard dl {
@@ -1357,15 +1527,15 @@ td.closed {
 }
 
 .contact-head .branch-army {
-  background-image: url("branch-army.png");
+  background-image: url("Assets/Images/Branches/branch-army.png");
 }
 
 .contact-head .branch-fort {
-  background-image: url("branch-fort.png");
+  background-image: url("Assets/Images/Branches/branch-fort.png");
 }
 
 .contact-head .branch-barracks {
-  background-image: url("branch-barracks.png");
+  background-image: url("Assets/Images/Branches/branch-barracks.png");
 }
 
 .contact-head .tag {
@@ -2422,6 +2592,10 @@ body.modal-open {
 
   header.menu-open nav .btn {
     display: none;
+  }
+
+  .branch-card-row {
+    grid-template-columns: 1fr;
   }
 
   .split,

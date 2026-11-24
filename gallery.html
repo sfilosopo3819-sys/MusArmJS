@@ -13,7 +13,7 @@
     <header>
       <div class="wrap">
         <a class="brand" href="Homepage.html" aria-label="The Music Army home">
-          <img src="logo.png" alt="The Music Army - Music by Ear, Play by Heart">
+          <img src="Assets/Images/Logos/logo.png" alt="The Music Army - Music by Ear, Play by Heart">
         </a>
         <nav aria-label="Main navigation">
           <a href="about.html">About</a>
@@ -52,12 +52,12 @@
             </div>
           </div>
           <div class="masonry">
-            <div class="ph g0" aria-hidden="true"><span>Show name · Year</span></div>
-            <div class="ph g1" aria-hidden="true"><span>Show name · Year</span></div>
-            <div class="ph g2" aria-hidden="true"><span>Show name · Year</span></div>
-            <div class="ph g3" aria-hidden="true"><span>Show name · Year</span></div>
-            <div class="ph g4" aria-hidden="true"><span>Show name · Year</span></div>
-            <div class="ph g0" aria-hidden="true"><span>Show name · Year</span></div>
+            <div class="ph event-photo event-1" role="img" aria-label="Student talent show performance"><span>Student concert · 2026</span></div>
+            <div class="ph event-photo event-2" role="img" aria-label="Student performing at a Music Army event"><span>Talent show · 2026</span></div>
+            <div class="ph event-photo event-3" role="img" aria-label="Music Army event moment"><span>Live performance · 2026</span></div>
+            <div class="ph event-photo event-4" role="img" aria-label="Student playing on stage"><span>Student showcase · 2026</span></div>
+            <div class="ph event-photo event-5" role="img" aria-label="Music Army talent show audience and performer"><span>On stage · 2026</span></div>
+            <div class="ph event-photo event-6" role="img" aria-label="Student music event"><span>Music Army event · 2026</span></div>
           </div>
           <div class="center"><a class="btn o" href="#">View all photos</a></div>
         </div>
@@ -69,23 +69,34 @@
           <h2>Watch them play.</h2>
           <div class="video">
             <div>
-              <div class="player"><span class="play">▶</span><span class="time">0:00</span></div>
-              <p class="video-title">Video title</p>
-              <p class="video-meta">Student name · Instrument · Branch</p>
+              <div class="player">
+                <video class="performance-video" controls preload="metadata" playsinline>
+                  <source src="Assets/Videos/Music Barracks.mp4" type="video/mp4">
+                  Your browser does not support embedded videos.
+                </video>
+              </div>
+              <p class="video-title">Music Barracks Performance</p>
+              <p class="video-meta">Student performance · Music Barracks</p>
             </div>
             <div class="vlist">
-              <div class="vitem">
-                <div class="ph g3" aria-hidden="true"><span class="play">▶</span></div>
-                <div><b>Video title</b>Student name · Instrument</div>
-              </div>
-              <div class="vitem">
-                <div class="ph g4" aria-hidden="true"><span class="play">▶</span></div>
-                <div><b>Video title</b>Student name · Instrument</div>
-              </div>
-              <div class="vitem">
-                <div class="ph g2" aria-hidden="true"><span class="play">▶</span></div>
-                <div><b>Video title</b>Student name · Instrument</div>
-              </div>
+              <button type="button" class="vitem" data-video="Assets/Videos/Music Barracks.mp4" aria-label="Play Music Barracks performance">
+                <video class="vitem-video" muted preload="metadata" playsinline>
+                  <source src="Assets/Videos/Music Barracks.mp4" type="video/mp4">
+                </video>
+                <span><b>Music Barracks</b>Student performance</span>
+              </button>
+              <button type="button" class="vitem" data-video="Assets/Videos/Music Barracks.mp4" aria-label="Play Music Barracks performance">
+                <video class="vitem-video" muted preload="metadata" playsinline>
+                  <source src="Assets/Videos/Music Barracks.mp4" type="video/mp4">
+                </video>
+                <span><b>Music Barracks</b>Live student performance</span>
+              </button>
+              <button type="button" class="vitem" data-video="Assets/Videos/Music Barracks.mp4" aria-label="Play Music Barracks performance">
+                <video class="vitem-video" muted preload="metadata" playsinline>
+                  <source src="Assets/Videos/Music Barracks.mp4" type="video/mp4">
+                </video>
+                <span><b>Music Barracks</b>On-stage moment</span>
+              </button>
             </div>
           </div>
         </div>

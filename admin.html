@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookings | The Music Army</title>
+  <style>
+    :root {
+      --navy: #1f2d3d;
+      --navy-dark: #192637;
+      --canvas: #eaede9;
+      --panel: #f8f9f7;
+      --ink: #20272f;
+      --muted: #75808a;
+      --line: #dfe3df;
+      --green: #27413a;
+      --orange: #d77a2b;
+      --yellow: #f1bd55;
+      --red: #a94f4f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 1100px;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--canvas);
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    .admin-shell {
+      display: grid;
+      grid-template-columns: 170px minmax(620px, 1fr) 360px;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 18px 16px 14px;
+      color: #b6c2ca;
+      background: var(--navy);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      margin-bottom: 24px;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .brand-lockup img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .side-nav {
+      display: grid;
+      gap: 3px;
+    }
+
+    .side-nav button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 42px;
+      border: 0;
+      border-radius: 4px;
+      padding: 0 12px;
+      color: #aebbc5;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .side-nav button.active {
+      color: #fff;
+      background: #26394a;
+    }
+
+    .badge-count {
+      display: grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      color: #fff;
+      background: #c48a32;
+      font-size: 11px;
+    }
+
+    .sidebar-user {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 12px;
+    }
+
+    .sidebar-user strong {
+      display: block;
+      color: #eef3f5;
+      font-size: 12px;
+    }
+
+    .sidebar-user span {
+      color: #91a0aa;
+    }
+
+    .logout {
+      width: 100%;
+      margin-top: 18px;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 0;
+      color: #91a0aa;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .workspace {
+      min-width: 620px;
+      background: #edf0ec;
+    }
+
+    .workspace-header {
+      height: 118px;
+      padding: 26px 30px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #f7f8f5;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .header-meta {
+      color: #6b7278;
+      font-size: 11px;
+    }
+
+    .header-meta strong {
+      color: #35404a;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 4px 0 2px;
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      color: #70777d;
+      font-size: 12px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    select, input, textarea {
+      border: 1px solid #d9dedb;
+      border-radius: 3px;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: #788d84;
+      box-shadow: 0 0 0 2px rgba(60,91,79,.08);
+    }
+
+    .header-actions select {
+      height: 34px;
+      padding: 0 32px 0 10px;
+      font-size: 12px;
+    }
+
+    .queue-content {
+      padding: 20px 30px 30px;
+    }
+
+    .notice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 64px;
+      margin-bottom: 16px;
+      border: 1px solid #dfd8c4;
+      border-left: 4px solid #e0a24d;
+      border-radius: 4px;
+      padding: 10px 14px;
+      background: #f4efdF;
+    }
+
+    .notice-icon {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      flex: none;
+      border: 1px solid #d69a45;
+      border-radius: 50%;
+      color: #b57824;
+      background: #fff4d8;
+      font-weight: 800;
+    }
+
+    .notice strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .notice p {
+      margin: 3px 0 0;
+      color: #69717a;
+      font-size: 12px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .filters input,
+    .filters select {
+      height: 36px;
+      padding: 0 10px;
+      font-size: 12px;
+    }
+
+    .filters input {
+      width: 190px;
+    }
+
+    .table-wrap {
+      overflow: hidden;
+      border: 1px solid #dfe3df;
+      border-radius: 5px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th {
+      height: 42px;
+      color: #69727b;
+      background: #f2f4f1;
+      text-align: left;
+      font-size: 10px;
+    }
+
+    th, td {
+      padding: 0 12px;
+      border-bottom: 1px solid #edf0ed;
+    }
+
+    tbody tr {
+      height: 52px;
+      cursor: pointer;
+    }
+
+    tbody tr:hover,
+    tbody tr.selected {
+      background: #f5f7f4;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 3px;
+      font-size: 10px;
+      text-transform: lowercase;
+    }
+
+    .status.pending {
+      color: #8a651e;
+      background: #f1dfb3;
+    }
+
+    .status.confirmed {
+      color: #4e684c;
+      background: #d8e1c6;
+    }
+
+    .status.declined {
+      color: #8c5353;
+      background: #ead5d5;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .mini-btn {
+      height: 27px;
+      border: 1px solid #dfe3df;
+      border-radius: 3px;
+      padding: 0 8px;
+      background: #fff;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .mini-btn.confirm {
+      color: #fff;
+      border-color: #65766d;
+      background: #65766d;
+    }
+
+    .mini-btn.decline {
+      color: #9b5555;
+      border-color: #dfccca;
+    }
+
+    .details {
+      border-left: 1px solid #dde2de;
+      background: #fbfbfa;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      min-height: 78px;
+      padding: 18px 20px 12px;
+    }
+
+    .detail-header h2 {
+      margin: 0 0 3px;
+      font-size: 20px;
+    }
+
+    .detail-kicker {
+      color: #66716f;
+      font-size: 11px;
+    }
+
+    .close-detail {
+      border: 0;
+      color: #78808a;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .detail-body {
+      padding: 0 20px 24px;
+    }
+
+    .next-step {
+      margin: 4px 0 16px;
+      border: 1px solid #dfe4df;
+      border-radius: 4px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+
+    .next-step strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 11px;
+    }
+
+    .next-step p {
+      margin: 0;
+      color: #4d5961;
+      font-size: 12px;
+    }
+
+    .facts {
+      margin: 0 0 16px;
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      min-height: 28px;
+      border-bottom: 1px solid #edf0ed;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .fact dt {
+      color: #7b8588;
+    }
+
+    .fact dd {
+      margin: 0;
+    }
+
+    .detail-actions {
+      display: grid;
+      gap: 8px;
+    }
+
+    .action-btn {
+      min-height: 36px;
+      border: 1px solid #ccd4cf;
+      border-radius: 3px;
+      background: #fff;
+      color: #3d4a47;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      border-color: var(--green);
+      color: #fff;
+      background: var(--green);
+    }
+
+    .action-btn.danger {
+      color: #a14f4f;
+      border-color: #e6caca;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      place-items: center;
+      background: rgba(18,29,38,.38);
+    }
+
+    .modal-backdrop.open {
+      display: grid;
+    }
+
+    .modal {
+      width: 380px;
+      border-radius: 5px;
+      padding: 18px 18px 16px;
+      background: #fff;
+      box-shadow: 0 18px 50px rgba(20,30,38,.24);
+    }
+
+    .modal-eyebrow {
+      color: #7a8388;
+      font-size: 10px;
+    }
+
+    .modal h2 {
+      margin: 3px 0 5px;
+      font-size: 17px;
+    }
+
+    .modal-summary {
+      margin: 0 0 14px;
+      color: #69737a;
+      font-size: 11px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: #69737a;
+      font-size: 10px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 36px;
+      padding: 8px 10px;
+      font-size: 11px;
+    }
+
+    .field textarea {
+      min-height: 42px;
+      resize: vertical;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .modal-actions button {
+      height: 34px;
+      border: 1px solid #d8dedb;
+      border-radius: 3px;
+      padding: 0 12px;
+      background: #fff;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .modal-actions .primary {
+      border-color: var(--green);
+      color: #fff;
+      background: var(--green);
+    }
+
+    .modal-actions .danger {
+      border-color: #a94f4f;
+      color: #fff;
+      background: #a94f4f;
+    }
+
+    .teacher-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      margin-top: 8px;
+      border: 1px solid #dfe3df;
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .teacher-option.selected {
+      border-color: #4e7062;
+      box-shadow: 0 0 0 1px #4e7062;
+    }
+
+    .teacher-option strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .teacher-option small {
+      color: #7d8787;
+    }
+
+    .teacher-option.disabled {
+      color: #9d6666;
+      background: #fafafa;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 1250px) {
+      .admin-shell {
+        grid-template-columns: 150px minmax(620px, 1fr) 330px;
+      }
+
+      .queue-content,
+      .workspace-header {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="brand-lockup">
+        <img src="Assets/Images/Logos/logo.png" alt="">
+        <span>The Music Army</span>
+      </div>
+
+      <nav class="side-nav" aria-label="Admin navigation">
+        <button type="button" onclick="window.location.href='dashboard.html'">Dashboard</button>
+        <button type="button" class="active" onclick="window.location.href='admin.html'">Bookings <span class="badge-count" id="sidebarCount">3</span></button>
+      </nav>
+
+      <div class="sidebar-user">
+        <strong>Oshien Maboloc</strong>
+        <span>Roving admin</span>
+        <button class="logout" type="button">Logout</button>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-header">
+        <div class="header-top">
+          <div>
+            <div class="header-meta"><strong>Oshien Maboloc</strong> · Roving admin</div>
+            <h1>Booking queue</h1>
+            <div class="subtitle">Click a request to see its details, then confirm, decline or reschedule.</div>
+          </div>
+          <div class="header-actions">
+            <select id="branchFilter" aria-label="Filter by branch">
+              <option value="All branches">All branches</option>
+              <option>Makati</option>
+              <option>BGC</option>
+              <option>Acacia Town Center</option>
+              <option>Poblacion</option>
+            </select>
+            <button class="mini-btn" type="button" id="publicBooking">Public booking form</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="queue-content">
+        <div class="notice">
+          <div class="notice-icon">!</div>
+          <div>
+            <strong><span id="pendingCount">3</span> requests are waiting for you</strong>
+            <p>Click a request to see its details, then confirm, decline or reschedule.</p>
+          </div>
+        </div>
+
+        <div class="filters">
+          <input id="searchInput" type="search" placeholder="Search name or instrument" aria-label="Search name or instrument">
+          <select id="statusFilter" aria-label="Filter by status">
+            <option value="All statuses">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="declined">Declined</option>
+          </select>
+          <select id="instrumentFilter" aria-label="Filter by instrument">
+            <option value="All instruments">All instruments</option>
+            <option>Piano</option>
+            <option>Guitar</option>
+            <option>Vocals</option>
+            <option>Drums</option>
+            <option>Bass</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Instrument</th>
+                <th>Date/Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookingRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <aside class="details" id="detailsPanel"></aside>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"></div>
+  </div>
+
+  <script>
+    const requests = [
+      {
+        id: 1,
+        name: "Ana Cruz",
+        branch: "Makati",
+        instrument: "Piano",
+        date: "Not scheduled yet",
+        status: "pending",
+        age: "13–17",
+        contact: "0917-402-8831",
+        email: "ana.cruz@email.com",
+        submitted: "Nov 23, 2026",
+        teacher: ""
+      },
+      {
+        id: 2,
+        name: "Carl Reyes",
+        branch: "BGC",
+        instrument: "Guitar",
+        date: "Nov 26, 10:00 AM",
+        status: "confirmed",
+        age: "18–25",
+        contact: "0928-115-7742",
+        email: "carl.reyes@email.com",
+        submitted: "Nov 23, 2026",
+        teacher: ""
+      },
+      {
+        id: 3,
+        name: "Ella Uy",
+        branch: "Acacia Town Center",
+        instrument: "Vocals",
+        date: "Not scheduled yet",
+        status: "pending",
+        age: "18–25",
+        contact: "0918-228-4512",
+        email: "ella.uy@email.com",
+        submitted: "Nov 24, 2026",
+        teacher: ""
+      },
+      {
+        id: 4,
+        name: "Miguel Tan",
+        branch: "Poblacion",
+        instrument: "Drums",
+        date: "Not scheduled yet",
+        status: "pending",
+        age: "7–12",
+        contact: "0932-708-1184",
+        email: "miguel.tan@email.com",
+        submitted: "Nov 24, 2026",
+        teacher: ""
+      },
+      {
+        id: 5,
+        name: "Sofia Lim",
+        branch: "BGC",
+        instrument: "Bass",
+        date: "Nov 29, 3:00 PM",
+        status: "confirmed",
+        age: "18–25",
+        contact: "0945-301-6621",
+        email: "sofia.lim@email.com",
+        submitted: "Nov 24, 2026",
+        teacher: "Rafi Gomez"
+      }
+    ];
+
+    const teachers = [
+      { name: "Rafi Gomez", instruments: "Vocals", branch: "Acacia", availability: "Available" },
+      { name: "Paolo Reyes", instruments: "Piano", branch: "Poblacion", availability: "Available" },
+      { name: "Lara Uy", instruments: "Vocals", branch: "BGC", availability: "Available" },
+      { name: "Jerico Apilado", instruments: "Guitar", branch: "Acacia", availability: "Available" },
+      { name: "Michael Mendoza", instruments: "Guitar, Bass, Ukulele", branch: "BGC", availability: "Available" },
+      { name: "Ferdinand Abacan", instruments: "Drums", branch: "Poblacion", availability: "Available" }
+    ];
+
+    let selectedId = 1;
+    let modalMode = "";
+
+    const rows = document.getElementById("bookingRows");
+    const details = document.getElementById("detailsPanel");
+    const backdrop = document.getElementById("modalBackdrop");
+    const modal = document.getElementById("modal");
+
+    function escapeHtml(value) {
+      const div = document.createElement("div");
+      div.textContent = value;
+      return div.innerHTML;
+    }
+
+    function getSelected() {
+      return requests.find((request) => request.id === selectedId) || requests[0];
+    }
+
+    function pendingCount() {
+      return requests.filter((request) => request.status === "pending").length;
+    }
+
+    function renderTable() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const status = document.getElementById("statusFilter").value;
+      const instrument = document.getElementById("instrumentFilter").value;
+      const branch = document.getElementById("branchFilter").value;
+
+      const filtered = requests.filter((request) => {
+        const matchesSearch = !search || request.name.toLowerCase().includes(search) || request.instrument.toLowerCase().includes(search);
+        const matchesStatus = status === "All statuses" || request.status === status;
+        const matchesInstrument = instrument === "All instruments" || request.instrument === instrument;
+        const matchesBranch = branch === "All branches" || request.branch === branch;
+        return matchesSearch && matchesStatus && matchesInstrument && matchesBranch;
+      });
+
+      rows.innerHTML = filtered.map((request) => `
+        <tr data-id="${request.id}" class="${request.id === selectedId ? "selected" : ""}">
+          <td>${escapeHtml(request.name)}</td>
+          <td>${escapeHtml(request.branch)}</td>
+          <td>${escapeHtml(request.instrument)}</td>
+          <td>${escapeHtml(request.date)}</td>
+          <td><span class="status ${request.status}">${request.status}</span></td>
+          <td>
+            <div class="table-actions">
+              ${request.status === "pending" ? `
+                <button type="button" class="mini-btn confirm" data-action="confirm" data-id="${request.id}">Confirm</button>
+                <button type="button" class="mini-btn decline" data-action="decline" data-id="${request.id}">Decline</button>
+              ` : `
+                <button type="button" class="mini-btn confirm" data-action="manage" data-id="${request.id}">Manage</button>
+              `}
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      document.getElementById("pendingCount").textContent = pendingCount();
+      document.getElementById("sidebarCount").textContent = pendingCount();
+    }
+
+    function renderDetails() {
+      const request = getSelected();
+      const isConfirmed = request.status === "confirmed";
+      const isDeclined = request.status === "declined";
+      details.innerHTML = `
+        <div class="detail-header">
+          <div>
+            <div class="detail-kicker">Booking · ${isConfirmed ? "Confirmed" : isDeclined ? "Declined" : "Pending"}</div>
+            <h2>${escapeHtml(request.name)}</h2>
+          </div>
+          <button type="button" class="close-detail" id="closeDetail" aria-label="Close details">×</button>
+        </div>
+        <div class="detail-body">
+          ${isConfirmed ? `
+            <div class="next-step">
+              <strong>Next step</strong>
+              <p>${request.teacher ? "The lesson is scheduled and a teacher is assigned." : "Need to move the lesson? Click Reschedule lesson."}</p>
+            </div>
+          ` : isDeclined ? `
+            <div class="next-step">
+              <strong>Request declined</strong>
+              <p>The student can submit a new public booking request.</p>
+            </div>
+          ` : `
+            <div class="next-step">
+              <strong>Next step</strong>
+              <p>Confirm this request and pick the first-lesson date, time and teacher.</p>
+            </div>
+          `}
+          <dl class="facts">
+            <div class="fact"><dt>Program</dt><dd>${escapeHtml(request.instrument)}</dd></div>
+            <div class="fact"><dt>Branch</dt><dd>${escapeHtml(request.branch)}</dd></div>
+            <div class="fact"><dt>Age range</dt><dd>${escapeHtml(request.age)}</dd></div>
+            <div class="fact"><dt>Contact</dt><dd>${escapeHtml(request.contact)}</dd></div>
+            <div class="fact"><dt>Email</dt><dd>${escapeHtml(request.email)}</dd></div>
+            <div class="fact"><dt>First lesson</dt><dd>${escapeHtml(request.date)}</dd></div>
+            <div class="fact"><dt>Teacher</dt><dd>${escapeHtml(request.teacher || "Not assigned yet")}</dd></div>
+          </dl>
+          ${isDeclined ? `
+            <div class="detail-actions">
+              <button type="button" class="action-btn" id="restoreRequest">Restore request</button>
+            </div>
+          ` : `
+            <div class="detail-actions">
+              ${isConfirmed ? `
+                <button type="button" class="action-btn primary" id="rescheduleLesson">Reschedule lesson</button>
+                <button type="button" class="action-btn" id="assignTeacher">Assign teacher</button>
+                <button type="button" class="action-btn danger" id="cancelBooking">Cancel booking</button>
+              ` : `
+                <button type="button" class="action-btn primary" id="confirmLesson">Confirm and schedule first lesson</button>
+                <button type="button" class="action-btn danger" id="declineRequest">Decline request</button>
+              `}
+            </div>
+          `}
+        </div>
+      `;
+
+      document.getElementById("closeDetail").addEventListener("click", () => {
+        details.style.display = "none";
+      });
+      document.getElementById("restoreRequest")?.addEventListener("click", () => {
+        request.status = "pending";
+        renderTable();
+        renderDetails();
+      });
+      document.getElementById("confirmLesson")?.addEventListener("click", () => openModal("confirm"));
+      document.getElementById("declineRequest")?.addEventListener("click", () => openModal("decline"));
+      document.getElementById("rescheduleLesson")?.addEventListener("click", () => openModal("reschedule"));
+      document.getElementById("assignTeacher")?.addEventListener("click", () => openModal("assign"));
+      document.getElementById("cancelBooking")?.addEventListener("click", () => openModal("cancel"));
+    }
+
+    function openModal(mode) {
+      modalMode = mode;
+      const request = getSelected();
+
+      if (mode === "confirm") {
+        modal.innerHTML = `
+          <div class="modal-eyebrow">Booking request · Pending</div>
+          <h2 id="modalTitle">Confirm and schedule first lesson</h2>
+          <p class="modal-summary">The first lesson is free. Pick the date, time and teacher, then confirm.</p>
+          <dl class="facts">
+            <div class="fact"><dt>Student</dt><dd>${escapeHtml(request.name)}</dd></div>
+            <div class="fact"><dt>Program</dt><dd>${escapeHtml(request.instrument)}</dd></div>
+            <div class="fact"><dt>Branch</dt><dd>${escapeHtml(request.branch)}</dd></div>
+            <div class="fact"><dt>Age range</dt><dd>${escapeHtml(request.age)}</dd></div>
+            <div class="fact"><dt>Contact</dt><dd>${escapeHtml(request.contact)}</dd></div>
+            <div class="fact"><dt>Email</dt><dd>${escapeHtml(request.email)}</dd></div>
+          </dl>
+          <div class="form-grid">
+            <div class="field"><label>Date</label><input id="confirmDate" type="date" value="2026-11-25"></div>
+            <div class="field"><label>Time</label><select id="confirmTime"><option>4:00 PM</option><option>10:00 AM</option><option>2:00 PM</option></select></div>
+            <div class="field full"><label>Teacher</label><select id="confirmTeacher">${teachers.map((teacher) => `<option>${escapeHtml(teacher.name)} · ${escapeHtml(teacher.instruments)} · ${escapeHtml(teacher.branch)}</option>`).join("")}</select></div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" data-close>Cancel</button>
+            <button type="button" class="primary" id="confirmSubmit">Confirm lesson</button>
+          </div>
+        `;
+      } else if (mode === "decline") {
+        modal.innerHTML = `
+          <div class="modal-eyebrow">Booking request · Pending</div>
+          <h2 id="modalTitle">Decline this request?</h2>
+          <p class="modal-summary">${escapeHtml(request.name)} · ${escapeHtml(request.instrument)} · ${escapeHtml(request.branch)}. The student will not be scheduled. They can submit a new request later.</p>
+          <div class="field full"><label>Reason (optional)</label><select id="declineReason"><option value="">Choose a reason</option><option>No schedule available</option><option>Branch capacity reached</option><option>Student requested cancellation</option><option>Invalid booking details</option></select></div>
+          <div class="modal-actions">
+            <button type="button" data-close>Keep request</button>
+            <button type="button" class="danger" id="declineSubmit">Decline request</button>
+          </div>
+        `;
+      } else if (mode === "reschedule") {
+        modal.innerHTML = `
+          <div class="modal-eyebrow">Confirmed booking</div>
+          <h2 id="modalTitle">Reschedule lesson</h2>
+          <p class="modal-summary">${escapeHtml(request.name)} · ${escapeHtml(request.instrument)} · ${escapeHtml(request.branch)}. Currently ${escapeHtml(request.date)}.</p>
+          <div class="form-grid">
+            <div class="field"><label>New date</label><input id="rescheduleDate" type="date" value="2026-11-27"></div>
+            <div class="field"><label>New time</label><select id="rescheduleTime"><option>11:00 AM</option><option>1:00 PM</option><option>4:00 PM</option></select></div>
+            <div class="field full"><label>Note to student (optional)</label><textarea id="rescheduleNote" placeholder="Add a short note"></textarea></div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" data-close>Cancel</button>
+            <button type="button" class="primary" id="rescheduleSubmit">Save new time</button>
+          </div>
+        `;
+      } else if (mode === "assign") {
+        modal.innerHTML = `
+          <div class="modal-eyebrow">Confirmed booking · No teacher yet</div>
+          <h2 id="modalTitle">Assign teacher</h2>
+          <p class="modal-summary">${escapeHtml(request.name)} · ${escapeHtml(request.instrument)} · ${escapeHtml(request.branch)}. Fri, Nov 27, 2026 at 11:00 AM.</p>
+          ${teachers.map((teacher, index) => `
+            <label class="teacher-option ${index === 0 ? "selected" : ""}" data-name="${escapeHtml(teacher.name)}">
+              <span><strong>${escapeHtml(teacher.name)}</strong><small>${escapeHtml(teacher.instruments)} · ${escapeHtml(teacher.branch)}</small></span>
+              <small>${escapeHtml(teacher.availability)}</small>
+            </label>
+          `).join("")}
+          <div class="modal-actions">
+            <button type="button" data-close>Cancel</button>
+            <button type="button" class="primary" id="assignSubmit">Assign teacher</button>
+          </div>
+        `;
+      } else if (mode === "cancel") {
+        modal.innerHTML = `
+          <div class="modal-eyebrow">Confirmed booking</div>
+          <h2 id="modalTitle">Cancel this booking?</h2>
+          <p class="modal-summary">${escapeHtml(request.name)} · ${escapeHtml(request.instrument)} · ${escapeHtml(request.branch)}. The student will be notified.</p>
+          <div class="modal-actions">
+            <button type="button" data-close>Keep booking</button>
+            <button type="button" class="danger" id="cancelSubmit">Cancel booking</button>
+          </div>
+        `;
+      }
+
+      backdrop.classList.add("open");
+      backdrop.setAttribute("aria-hidden", "false");
+
+      modal.querySelectorAll("[data-close]").forEach((button) => {
+        button.addEventListener("click", closeModal);
+      });
+
+      document.getElementById("confirmSubmit")?.addEventListener("click", () => {
+        const date = document.getElementById("confirmDate").value;
+        const time = document.getElementById("confirmTime").value;
+        const teacher = document.getElementById("confirmTeacher").value.split(" · ")[0];
+        request.status = "confirmed";
+        request.date = `${formatDate(date)}, ${time}`;
+        request.teacher = teacher;
+        closeModal();
+        renderTable();
+        renderDetails();
+      });
+
+      document.getElementById("declineSubmit")?.addEventListener("click", () => {
+        request.status = "declined";
+        closeModal();
+        renderTable();
+        renderDetails();
+      });
+
+      document.getElementById("rescheduleSubmit")?.addEventListener("click", () => {
+        const date = document.getElementById("rescheduleDate").value;
+        const time = document.getElementById("rescheduleTime").value;
+        request.date = `${formatDate(date)}, ${time}`;
+        closeModal();
+        renderTable();
+        renderDetails();
+      });
+
+      let selectedTeacher = "Rafi Gomez";
+      modal.querySelectorAll(".teacher-option").forEach((option) => {
+        option.addEventListener("click", () => {
+          modal.querySelectorAll(".teacher-option").forEach((item) => item.classList.remove("selected"));
+          option.classList.add("selected");
+          selectedTeacher = option.dataset.name;
+        });
+      });
+      document.getElementById("assignSubmit")?.addEventListener("click", () => {
+        request.teacher = selectedTeacher;
+        closeModal();
+        renderDetails();
+      });
+
+      document.getElementById("cancelSubmit")?.addEventListener("click", () => {
+        request.status = "declined";
+        closeModal();
+        renderTable();
+        renderDetails();
+      });
+    }
+
+    function closeModal() {
+      backdrop.classList.remove("open");
+      backdrop.setAttribute("aria-hidden", "true");
+    }
+
+    function formatDate(value) {
+      const date = new Date(`${value}T12:00:00`);
+      return date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+    }
+
+    rows.addEventListener("click", (event) => {
+      const action = event.target.closest("[data-action]");
+      if (action) {
+        selectedId = Number(action.dataset.id);
+        details.style.display = "";
+        renderDetails();
+        if (action.dataset.action === "confirm") openModal("confirm");
+        if (action.dataset.action === "decline") openModal("decline");
+        if (action.dataset.action === "manage") renderDetails();
+        return;
+      }
+
+      const row = event.target.closest("tr[data-id]");
+      if (row) {
+        selectedId = Number(row.dataset.id);
+        details.style.display = "";
+        renderTable();
+        renderDetails();
+      }
+    });
+
+    ["searchInput", "statusFilter", "instrumentFilter", "branchFilter"].forEach((id) => {
+      document.getElementById(id).addEventListener(id === "searchInput" ? "input" : "change", renderTable);
+    });
+
+    backdrop.addEventListener("click", (event) => {
+      if (event.target === backdrop) closeModal();
+    });
+
+    document.getElementById("publicBooking").addEventListener("click", () => {
+      window.location.href = "book.html";
+    });
+
+    renderTable();
+    renderDetails();
+  </script>
+</body>
+</html>
