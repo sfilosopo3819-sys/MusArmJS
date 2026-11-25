@@ -49,47 +49,84 @@
             <div class="ph g1 tall" aria-hidden="true"></div>
           </div>
           <form class="form" action="#" method="post">
-            <div>
-              <label for="full-name">Full name</label>
-              <input type="text" placeholder="Your full name" id="full-name" name="full-name" required>
+            <div class="full booking-note">
+              <strong>Students with additional support needs are welcome.</strong>
+              <p>Share any learning or support adjustments that may help. No diagnosis is needed; we can discuss practical adjustments with your family before confirming the program.</p>
             </div>
             <div>
-              <label for="email">Email</label>
+              <label for="student-name">Student's name</label>
+              <input type="text" placeholder="Student's full name" id="student-name" name="student-name" required>
+            </div>
+            <div>
+              <label for="guardian-name">Parent/guardian name <span>(if student is under 18)</span></label>
+              <input type="text" placeholder="Parent or guardian's full name" id="guardian-name" name="guardian-name">
+            </div>
+            <div>
+              <label for="email">Contact email</label>
               <input type="email" placeholder="name@email.com" id="email" name="email" required>
             </div>
             <div>
-              <label for="contact-number">Contact number</label>
+              <label for="contact-number">Contact number <span>(parent/guardian or adult contact)</span></label>
               <input type="tel" placeholder="09XX XXX XXXX" id="contact-number" name="contact-number" required>
             </div>
             <div>
-              <label for="student-s-age">Student's age</label>
-              <select id="student-s-age" name="student-s-age">
-                <option>Choose an age range</option>
-                <option>Under 7</option>
-                <option>7 to 12</option>
-                <option>13 to 17</option>
-                <option>Adult</option>
+              <label for="student-age">Student's age</label>
+              <select id="student-age" name="student-age" required>
+                <option value="" disabled selected>Choose an age range</option>
+                <option value="under-7">Under 7</option>
+                <option value="7-12">7 to 12</option>
+                <option value="13-17">13 to 17</option>
+                <option value="adult">Adult</option>
+              </select>
+            </div>
+            <div>
+              <label for="instrument">Instrument of interest</label>
+              <select id="instrument" name="instrument" required>
+                <option value="" disabled selected>Choose an instrument</option>
+                <option>Vocals</option>
+                <option>Violin</option>
+                <option>Guitar</option>
+                <option>Bass</option>
+                <option>Drums</option>
+                <option>Piano</option>
+                <option>Ukulele</option>
               </select>
             </div>
             <div>
               <label for="program-you-re-interested-in">Program you're interested in</label>
-              <select id="program-you-re-interested-in" name="program-you-re-interested-in">
-                <option>Choose a program</option>
+              <select id="program-you-re-interested-in" name="program-you-re-interested-in" required>
+                <option value="" disabled selected>Choose a program</option>
                 <option>Infantry</option>
                 <option>Basic Combat</option>
-                <option>A-Team</option>
+                <option>A-Team Level</option>
                 <option>Special Forces</option>
-                <option>Band coaching</option>
+                <option>Band Coaching</option>
               </select>
             </div>
             <div>
               <label for="branch">Branch</label>
-              <select id="branch" name="branch">
-                <option>Choose a branch</option>
+              <select id="branch" name="branch" required>
+                <option value="" disabled selected>Choose a branch</option>
                 <option>The Music Army, Acacia Estates</option>
                 <option>The Fort Music Camp, BGC</option>
                 <option>The Music Barracks, Poblacion</option>
               </select>
+            </div>
+            <div>
+              <label for="lesson-mode">Lesson mode</label>
+              <select id="lesson-mode" name="lesson-mode" required>
+                <option value="" disabled selected>Choose a lesson mode</option>
+                <option>Face-to-face at a branch</option>
+                <option>Online</option>
+              </select>
+            </div>
+            <div>
+              <label for="preferred-schedule">Preferred days and times</label>
+              <input type="text" id="preferred-schedule" name="preferred-schedule" placeholder="e.g. Tue/Thu afternoons">
+            </div>
+            <div class="full field-full">
+              <label for="support-adjustments">Learning or support adjustments <span>(optional)</span></label>
+              <textarea id="support-adjustments" name="support-adjustments" rows="3" placeholder="Anything that could help us discuss a comfortable lesson setup?"></textarea>
             </div>
             <div class="full"><button class="btn btn-dark" type="submit">Submit</button></div>
           </form>
