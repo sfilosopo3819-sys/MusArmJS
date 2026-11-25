@@ -1471,7 +1471,7 @@ td.closed {
   box-shadow: 6px 6px 0 rgba(16,36,28,.25);
 }
 
-.form .booking-note {
+.form .full.booking-note {
   display: block;
   padding: 14px 16px;
   border-left: 4px solid var(--green);
@@ -2601,9 +2601,7 @@ body.modal-open {
   }
 
   header nav .btn {
-    display: inline-block;
-    padding: 10px 14px;
-    white-space: nowrap;
+    display: none;
   }
 
   header.menu-open nav {
@@ -2645,6 +2643,10 @@ body.modal-open {
   .faq-grid,
   .coach {
     grid-template-columns: 1fr;
+  }
+
+  .book-grid > div:first-child > .ph.g1.tall {
+    display: none !important;
   }
 
   .cta {
